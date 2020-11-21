@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineTestWABot.Model", "OnlineTestWABot.Model\OnlineTestWABot.Model.csproj", "{9C1541D1-E24D-4D48-80A0-72DBD6632E38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineTestWABot.WinApp", "OnlineTestWABot.WinApp\OnlineTestWABot.WinApp.csproj", "{74A83EF2-0A5C-429B-82F7-911510944921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{9C1541D1-E24D-4D48-80A0-72DBD6632E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C1541D1-E24D-4D48-80A0-72DBD6632E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C1541D1-E24D-4D48-80A0-72DBD6632E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A83EF2-0A5C-429B-82F7-911510944921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A83EF2-0A5C-429B-82F7-911510944921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A83EF2-0A5C-429B-82F7-911510944921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A83EF2-0A5C-429B-82F7-911510944921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
