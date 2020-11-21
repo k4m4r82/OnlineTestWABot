@@ -28,34 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnProsesPesan = new System.Windows.Forms.Button();
-            this.txtPesan = new System.Windows.Forms.TextBox();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.chkHeadless = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // btnProsesPesan
+            // btnStart
             // 
-            this.btnProsesPesan.Location = new System.Drawing.Point(131, 14);
-            this.btnProsesPesan.Name = "btnProsesPesan";
-            this.btnProsesPesan.Size = new System.Drawing.Size(128, 23);
-            this.btnProsesPesan.TabIndex = 0;
-            this.btnProsesPesan.Text = "Proses Pesan";
-            this.btnProsesPesan.UseVisualStyleBackColor = true;
-            this.btnProsesPesan.Click += new System.EventHandler(this.btnProsesPesan_Click);
+            this.btnStart.Location = new System.Drawing.Point(201, 47);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 0;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // txtPesan
+            // btnStop
             // 
-            this.txtPesan.Location = new System.Drawing.Point(12, 14);
-            this.txtPesan.Name = "txtPesan";
-            this.txtPesan.Size = new System.Drawing.Size(100, 20);
-            this.txtPesan.TabIndex = 1;
+            this.btnStop.Enabled = false;
+            this.btnStop.Location = new System.Drawing.Point(282, 47);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.TabIndex = 1;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // chkHeadless
+            // 
+            this.chkHeadless.AutoSize = true;
+            this.chkHeadless.Location = new System.Drawing.Point(12, 12);
+            this.chkHeadless.Name = "chkHeadless";
+            this.chkHeadless.Size = new System.Drawing.Size(278, 17);
+            this.chkHeadless.TabIndex = 2;
+            this.chkHeadless.Text = "Headless mode (no windows) (TIDAK DISARANKAN)";
+            this.chkHeadless.UseVisualStyleBackColor = true;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 261);
-            this.Controls.Add(this.txtPesan);
-            this.Controls.Add(this.btnProsesPesan);
+            this.ClientSize = new System.Drawing.Size(369, 76);
+            this.Controls.Add(this.chkHeadless);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnStart);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Online Test WA Bot";
@@ -66,8 +84,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnProsesPesan;
-        private System.Windows.Forms.TextBox txtPesan;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.CheckBox chkHeadless;
     }
 }
 
