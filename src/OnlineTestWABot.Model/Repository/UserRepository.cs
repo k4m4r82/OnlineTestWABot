@@ -48,8 +48,13 @@ namespace OnlineTestWABot.Model.Repository
 
             try
             {
-                _context.Db.Insert<User>(obj);
-                result = 1;
+                var existUser = _context.Db.Get<User>(obj.user_id);
+
+                if (existUser == null)
+                {
+                    _context.Db.Insert<User>(obj);
+                    result = 1;
+                }                
             }
             catch (Exception ex)
             {
