@@ -40,7 +40,7 @@ namespace OnlineTestWABot.Model.Context
 
         public DbContext()
         {
-            var dbName = Directory.GetCurrentDirectory() + @"database\DbTesOnline.db";
+            var dbName = Directory.GetCurrentDirectory() + @"\database\DbTesOnline.db";
 
             _providerName = "System.Data.SQLite";
             _connectionString = "Data Source=" + dbName;
