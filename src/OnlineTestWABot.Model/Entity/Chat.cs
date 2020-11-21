@@ -28,6 +28,11 @@ namespace OnlineTestWABot.Model.Entity
     [Table("chat")]
     public class Chat
     {
+        public Chat()
+        {
+            tanggal = DateTime.Now;
+        }
+
         [Key]
         public int chat_id { get; set; }
         public string user_id { get; set; }
