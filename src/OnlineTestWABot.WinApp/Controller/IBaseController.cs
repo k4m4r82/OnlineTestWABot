@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OnlineTestWABot.WinApp.Controller
+namespace OnlineTestWABot.Controller
 {
     public interface IBaseController<T>
         where T : class

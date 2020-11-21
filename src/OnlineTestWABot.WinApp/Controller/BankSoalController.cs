@@ -25,7 +25,7 @@ using OnlineTestWABot.Model.Entity;
 using OnlineTestWABot.Model.Repository;
 using OnlineTestWABot.Model.Context;
 
-namespace OnlineTestWABot.WinApp.Controller
+namespace OnlineTestWABot.Controller
 {
     public interface IBankSoalController
     {
