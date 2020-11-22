@@ -48,22 +48,22 @@ namespace OnlineTestWABot.WinApp
                                        "Blog : {3}\r\n\r\n" +
 
                                         "Daftar keyword yang tersedia :\r\n\r\n" +
-                                        "\U00002705 *about* -> informasi program\r\n" +
-                                        "\U00002705 *bantuan* -> untuk menampilkan perintah yang tersedia\r\n" +
-                                        "\U00002705 *mulai* -> untuk memulai tes bahasa inggris\r\n" +
-                                        "\U00002705 *soal* -> untuk mendapatkan soal tes bahasa inggris\r\n" +
-                                        "\U00002705 *soalterakhir* -> informasi soal terakhir\r\n" +
-                                        "\U00002705 *jawab jawaban* -> untuk menjawab soal. contoh *JAWAB A*\r\n" +
-                                        "\U00002705 *batal* -> untuk mengabaikan soal terakhir/enggak sanggup jawab \U0001F61C\r\n" +
-                                        "\U00002705 *selesai* -> untuk mengakhiri tes bahasa Inggris";
+                                        "\U00002705 */about* - informasi program\r\n" +
+                                        "\U00002705 */bantuan* - untuk menampilkan perintah yang tersedia\r\n" +
+                                        "\U00002705 */mulai* - untuk memulai tes bahasa inggris\r\n" +
+                                        "\U00002705 */soal* - untuk mendapatkan soal tes bahasa inggris\r\n" +
+                                        "\U00002705 */soalterakhir* - informasi soal terakhir\r\n" +
+                                        "\U00002705 */jawab jawaban* - untuk menjawab soal. contoh */jawab A*\r\n" +
+                                        "\U00002705 */batal* - untuk mengabaikan soal terakhir/enggak sanggup jawab \U0001F61C\r\n" +
+                                        "\U00002705 */selesai* - untuk mengakhiri tes bahasa Inggris";
 
-        private const string PERINTAH_SALAH = "Maaf perintah *{0}* tidak dikenal, ketik *bantuan* untuk informasi lebih lanjut.";
+        private const string PERINTAH_SALAH = "Maaf perintah *{0}* tidak dikenal, ketik */bantuan* untuk informasi lebih lanjut.";
         private const string AUTHOR = "Kamarudin";
         private const string EMAIL = "rudi.krsoftware@gmail.com";
         private const string URL = "http://coding4ever.net/";
 
         private string _currentVersion = string.Empty;
-        private IWhatsAppNETAPI _whatsAppApi;
+        private IWhatsAppNETAPI _whatsAppApi; // deklarasi objek WhatsApp NET Client
 
         public FrmMain()
         {
@@ -98,35 +98,35 @@ namespace OnlineTestWABot.WinApp
 
                 switch (keyword.ToLower())
                 {
-                    case "about":
+                    case "/about":
                         msgToReplay = string.Format(ABOUT, _currentVersion, AUTHOR, EMAIL, URL);
                         break;
 
-                    case "bantuan":
+                    case "/bantuan":
                         msgToReplay = string.Format(BANTUAN, _currentVersion, AUTHOR, EMAIL, URL);
                         break;
 
-                    case "mulai":
+                    case "/mulai":
                         perintahBot.Mulai(user.user_id, ref msgToReplay);
                         break;
 
-                    case "soal":
+                    case "/soal":
                         perintahBot.Soal(user.user_id, ref msgToReplay);
                         break;
 
-                    case "soalterakhir":
+                    case "/soalterakhir":
                         perintahBot.SoalTerakhir(user.user_id, ref msgToReplay);
                         break;
 
-                    case "jawab":
+                    case "/jawab":
                         perintahBot.Jawab(user.user_id, param, ref msgToReplay);                        
                         break;
 
-                    case "batal":
+                    case "/batal":
                         perintahBot.Batal(user.user_id, ref msgToReplay);
                         break;
 
-                    case "selesai":
+                    case "/selesai":
                         perintahBot.Selesai(user.user_id, ref msgToReplay);                        
                         break;
 
@@ -159,6 +159,7 @@ namespace OnlineTestWABot.WinApp
 
             using (new StCursor(Cursors.WaitCursor, new TimeSpan(0, 0, 0, 0)))
             {
+                // buka chrome web browser untuk menjalankan WhatsApp Web
                 if (_whatsAppApi.Connect(url, chkHeadless.Checked))
                 {
                     while (!_whatsAppApi.OnReady())
@@ -175,6 +176,7 @@ namespace OnlineTestWABot.WinApp
                         Thread.Sleep(1000);
                     }
 
+                    // subscribe event OnMessageRecieved 
                     _whatsAppApi.OnMessageRecieved += OnMessageRecievedEventHandler;
                     _whatsAppApi.MessageSubscribe();
 
@@ -190,9 +192,11 @@ namespace OnlineTestWABot.WinApp
         {
             using (new StCursor(Cursors.WaitCursor, new TimeSpan(0, 0, 0, 0)))
             {
+                // unsubscribe event OnMessageRecieved 
                 _whatsAppApi.OnMessageRecieved -= OnMessageRecievedEventHandler;
                 _whatsAppApi.MessageUnSubscribe();
 
+                // tutup chrome web browser
                 _whatsAppApi.Disconnect();
 
                 btnStart.Enabled = true;
@@ -201,9 +205,7 @@ namespace OnlineTestWABot.WinApp
         }
 
         private void OnMessageRecievedEventHandler(MsgArgs e)
-        {
-            var msgToReplay = string.Empty;
-
+        {            
             var user = new User
             {
                 user_id = e.Sender
@@ -215,6 +217,7 @@ namespace OnlineTestWABot.WinApp
                 text = e.Msg
             };
 
+            var msgToReplay = string.Empty;
             AutoReplay(user, chat, ref msgToReplay);
 
             _whatsAppApi.SendMessage(new MsgArgs(e.Sender, msgToReplay));
