@@ -2,6 +2,15 @@
 
 Ini adalah contoh aplikasi WhatsApp Bot dengan tema **Tes Online Bahasa Inggris**. Project ini dibuat menggunakan bahasa C# dan menggunakan library [WhatsApp NET Client](http://wa-net.coding4ever.net/) untuk mempermudah komunikasi ke aplikasi WhatsApp web.
 
+## Library Pendukung
+
+Untuk membuat project ini saya menggunakan library pendukung sebagai berikut:
+
+* [Dapper](https://www.nuget.org/packages/Dapper/)
+* [Dapper.Contrib](https://www.nuget.org/packages/Dapper.Contrib/)
+* [System.Data.SQLite.Core](https://www.nuget.org/packages/System.Data.SQLite.Core/)
+* [WhatsApp NET Client](http://wa-net.coding4ever.net/)
+
 ## Persyaratan Sistem
 
 * .NET Framework 4.0, 4.5 dan .NET versi terbaru
