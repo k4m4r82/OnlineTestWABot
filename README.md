@@ -4,8 +4,6 @@ Ini adalah contoh aplikasi WhatsApp Bot dengan tema **Tes Online Bahasa Inggris*
 
 ## Library Pendukung
 
-Untuk membuat project ini saya menggunakan library pendukung sebagai berikut:
-
 * [Dapper](https://www.nuget.org/packages/Dapper/)
 * [Dapper.Contrib](https://www.nuget.org/packages/Dapper.Contrib/)
 * [System.Data.SQLite.Core](https://www.nuget.org/packages/System.Data.SQLite.Core/)
