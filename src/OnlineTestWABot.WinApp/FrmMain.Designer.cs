@@ -30,12 +30,14 @@
         {
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
-            this.chkHeadless = new System.Windows.Forms.CheckBox();
+            this.txtLokasiWhatsAppNETAPINodeJs = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnLokasiWAAutomateNodejs = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(201, 47);
+            this.btnStart.Location = new System.Drawing.Point(347, 51);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
@@ -46,7 +48,7 @@
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(282, 47);
+            this.btnStop.Location = new System.Drawing.Point(428, 52);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 1;
@@ -54,22 +56,42 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // chkHeadless
+            // txtLokasiWhatsAppNETAPINodeJs
             // 
-            this.chkHeadless.AutoSize = true;
-            this.chkHeadless.Location = new System.Drawing.Point(12, 12);
-            this.chkHeadless.Name = "chkHeadless";
-            this.chkHeadless.Size = new System.Drawing.Size(278, 17);
-            this.chkHeadless.TabIndex = 2;
-            this.chkHeadless.Text = "Headless mode (no windows) (TIDAK DISARANKAN)";
-            this.chkHeadless.UseVisualStyleBackColor = true;
+            this.txtLokasiWhatsAppNETAPINodeJs.Location = new System.Drawing.Point(15, 25);
+            this.txtLokasiWhatsAppNETAPINodeJs.Name = "txtLokasiWhatsAppNETAPINodeJs";
+            this.txtLokasiWhatsAppNETAPINodeJs.ReadOnly = true;
+            this.txtLokasiWhatsAppNETAPINodeJs.Size = new System.Drawing.Size(448, 20);
+            this.txtLokasiWhatsAppNETAPINodeJs.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(175, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Lokasi WhatsApp NET API NodeJs";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnLokasiWAAutomateNodejs
+            // 
+            this.btnLokasiWAAutomateNodejs.Location = new System.Drawing.Point(469, 23);
+            this.btnLokasiWAAutomateNodejs.Name = "btnLokasiWAAutomateNodejs";
+            this.btnLokasiWAAutomateNodejs.Size = new System.Drawing.Size(34, 23);
+            this.btnLokasiWAAutomateNodejs.TabIndex = 5;
+            this.btnLokasiWAAutomateNodejs.Text = "...";
+            this.btnLokasiWAAutomateNodejs.UseVisualStyleBackColor = true;
+            this.btnLokasiWAAutomateNodejs.Click += new System.EventHandler(this.btnLokasiWAAutomateNodejs_Click);
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 76);
-            this.Controls.Add(this.chkHeadless);
+            this.ClientSize = new System.Drawing.Size(510, 83);
+            this.Controls.Add(this.btnLokasiWAAutomateNodejs);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtLokasiWhatsAppNETAPINodeJs);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -77,6 +99,7 @@
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Online Test WA Bot";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,7 +109,9 @@
 
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.CheckBox chkHeadless;
+        private System.Windows.Forms.TextBox txtLokasiWhatsAppNETAPINodeJs;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnLokasiWAAutomateNodejs;
     }
 }
 

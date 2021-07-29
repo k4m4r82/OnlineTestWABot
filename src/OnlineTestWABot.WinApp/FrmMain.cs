@@ -63,11 +63,12 @@ namespace OnlineTestWABot.WinApp
         private const string URL = "http://coding4ever.net/";
 
         private string _currentVersion = string.Empty;
-        private IWhatsAppNETAPI _whatsAppApi; // deklarasi objek WhatsApp NET Client
+        private IWhatsAppNETAPI _wa; // deklarasi objek WhatsApp NET Client
 
         public FrmMain()
         {
             InitializeComponent();
+            _wa = new WhatsAppNETAPI.WhatsAppNETAPI();
 
             _currentVersion = string.Format("v{0}", GetCurrentVersion());
             this.Text = string.Format("WhatsApp Bot - Online Test {0}", _currentVersion);
@@ -153,74 +154,160 @@ namespace OnlineTestWABot.WinApp
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            _whatsAppApi = new WhatsAppNETAPI.WhatsAppNETAPI();
-
-            var url = "https://web.whatsapp.com";
-
-            using (new StCursor(Cursors.WaitCursor, new TimeSpan(0, 0, 0, 0)))
+            if (string.IsNullOrEmpty(txtLokasiWhatsAppNETAPINodeJs.Text))
             {
-                // buka chrome web browser untuk menjalankan WhatsApp Web
-                if (_whatsAppApi.Connect(url, chkHeadless.Checked))
-                {
-                    while (!_whatsAppApi.OnReady())
-                    {
-                        if (chkHeadless.Checked)
-                        {
-                            if (_whatsAppApi.IsScanMe())
-                            {
-                                var frmScanQRCode = new FrmScanQRCode(_whatsAppApi);
-                                frmScanQRCode.ShowDialog();
-                            }
-                        }
+                MessageBox.Show("Maaf, lokasi folder 'WhatsApp NET API NodeJs'  belum di set", "Peringatan",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        Thread.Sleep(1000);
-                    }
+                txtLokasiWhatsAppNETAPINodeJs.Focus();
+                return;
+            }
 
-                    // subscribe event OnMessageRecieved 
-                    _whatsAppApi.OnMessageRecieved += OnMessageRecievedEventHandler;
-                    _whatsAppApi.MessageSubscribe();
+            _wa.WaNetApiNodeJsPath = txtLokasiWhatsAppNETAPINodeJs.Text;
 
-                    btnStart.Enabled = false;
-                    btnStop.Enabled = true;
-                }
-                else
-                    _whatsAppApi.Disconnect();
+            if (!_wa.IsWaNetApiNodeJsPathExists)
+            {
+                MessageBox.Show("Maaf, lokasi folder 'WhatsApp NET API NodeJs' tidak ditemukan !!!", "Peringatan",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                txtLokasiWhatsAppNETAPINodeJs.Focus();
+                return;
+            }
+
+            Connect();
+        }
+
+        private void Connect()
+        {
+            this.UseWaitCursor = true;
+
+            // subscribe event
+            _wa.OnStartup += OnStartupHandler;
+            _wa.OnReceiveMessage += OnReceiveMessageHandler;
+            _wa.OnClientConnected += OnClientConnectedHandler;
+
+            _wa.Connect();
+
+            using (var frm = new FrmStartUp())
+            {
+                // subscribe event
+                _wa.OnStartup += frm.OnStartupHandler;
+                _wa.OnScanMe += frm.OnScanMeHandler;
+
+                frm.UseWaitCursor = true;
+                frm.ShowDialog();
+
+                // unsubscribe event
+                _wa.OnStartup -= frm.OnStartupHandler;
+                _wa.OnScanMe -= frm.OnScanMeHandler;
             }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            using (new StCursor(Cursors.WaitCursor, new TimeSpan(0, 0, 0, 0)))
-            {
-                // unsubscribe event OnMessageRecieved 
-                _whatsAppApi.OnMessageRecieved -= OnMessageRecievedEventHandler;
-                _whatsAppApi.MessageUnSubscribe();
-
-                // tutup chrome web browser
-                _whatsAppApi.Disconnect();
-
-                btnStart.Enabled = true;
-                btnStop.Enabled = false;
-            }      
+            Disconnect();
         }
 
-        private void OnMessageRecievedEventHandler(MsgArgs e)
-        {            
+        private void Disconnect()
+        {
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+
+            using (new StCursor(Cursors.WaitCursor, new TimeSpan(0, 0, 0, 0)))
+            {
+                // unsubscribe event
+                _wa.OnStartup -= OnStartupHandler;
+                _wa.OnReceiveMessage -= OnReceiveMessageHandler;
+                _wa.OnClientConnected -= OnClientConnectedHandler;
+
+                _wa.Disconnect();
+            }
+        }
+
+        private void btnLokasiWAAutomateNodejs_Click(object sender, EventArgs e)
+        {
+            var folderName = ShowDialogOpenFolder();
+
+            if (!string.IsNullOrEmpty(folderName)) txtLokasiWhatsAppNETAPINodeJs.Text = folderName;
+        }
+
+        private string ShowDialogOpenFolder()
+        {
+            var folderName = string.Empty;
+
+            using (var dlgOpen = new FolderBrowserDialog())
+            {
+                var result = dlgOpen.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dlgOpen.SelectedPath))
+                {
+                    folderName = dlgOpen.SelectedPath;
+                }
+            }
+
+            return folderName;
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Disconnect();
+        }
+
+        # region event handler
+
+        private void OnStartupHandler(string message)
+        {
+            // koneksi ke WA berhasil
+            if (message.IndexOf("Ready") >= 0)
+            {
+                btnStart.Invoke(new MethodInvoker(() => btnStart.Enabled = false));
+                btnStop.Invoke(new MethodInvoker(() => btnStop.Enabled = true));
+
+                this.UseWaitCursor = false;
+            }
+
+            // koneksi ke WA GAGAL, bisa dicoba lagi
+            if (message.IndexOf("Failure") >= 0 || message.IndexOf("Timeout") >= 0
+                || message.IndexOf("ERR_NAME") >= 0)
+            {
+                // unsubscribe event
+                _wa.OnStartup -= OnStartupHandler;
+                _wa.OnReceiveMessage -= OnReceiveMessageHandler;
+                _wa.OnClientConnected -= OnClientConnectedHandler;
+
+                _wa.Disconnect();
+
+                this.UseWaitCursor = false;
+
+                var msg = string.Format("{0}\n\nKoneksi ke WA gagal, silahkan cek koneksi internet Anda", message);
+                MessageBox.Show(msg, "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void OnReceiveMessageHandler(WhatsAppNETAPI.Message message)
+        {
             var user = new User
             {
-                user_id = e.Sender
+                user_id = message.from
             };
 
             var chat = new Chat
             {
-                user_id = e.Sender,
-                text = e.Msg
+                user_id = message.from,
+                text = message.content
             };
 
             var msgToReplay = string.Empty;
             AutoReplay(user, chat, ref msgToReplay);
 
-            _whatsAppApi.SendMessage(new MsgArgs(e.Sender, msgToReplay));
+            _wa.SendMessage(new MsgArgs(message.from, msgToReplay, "text"));
         }
+
+        private void OnClientConnectedHandler()
+        {
+            System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
+        }
+
+        #endregion                
     }
 }
