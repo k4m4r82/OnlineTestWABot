@@ -7,20 +7,20 @@ Ini adalah contoh aplikasi WhatsApp Bot dengan tema **Tes Online Bahasa Inggris*
 * [Dapper](https://www.nuget.org/packages/Dapper/)
 * [Dapper.Contrib](https://www.nuget.org/packages/Dapper.Contrib/)
 * [System.Data.SQLite.Core](https://www.nuget.org/packages/System.Data.SQLite.Core/)
-* [WhatsApp NET Client](http://wa-net.coding4ever.net/)
+* [WhatsApp NET Client](https://www.nuget.org/packages/WhatsAppNETAPI)
 
 ## Persyaratan Sistem
 
-* .NET Framework 4.0, 4.5 dan .NET versi terbaru
-*  Versi minimal Google Chrome harus versi 87.xx (jadi klo belum sama silahkan diupdate dulu)
+* Windows 7, 8, 10 dan windows versi terbaru
+* .NET Framework 4.5 dan .NET versi terbaru
+* Node.js versi 13.14.0 (khusus Windows 7)
+* Node.js versi 14.16.x atau versi terbaru (untuk windows 8, 10 atau windows terbaru)
+* Software git (version control)
 
 ## Instalasi
 
 * Buka project WhatsApp Bot, kemudian klik kanan solution `OnlineTestWABot` -> `Rebuild Solution`. Langkah ini akan merestore library-library [Nuget](https://www.nuget.org/) yang digunakan project ini.
-* Copykan file [chromedriver.exe](https://github.com/k4m4r82/OnlineTestWABot/tree/master/libs) yang ada di folder **libs** ke folder **bin\Debug** atau **bin\Release**.
 * Copykan folder **database** ke folder **bin\Debug** atau **bin\Release**.
-* Setelah itu Anda bisa menjalankan project kemudian klik tombol `Start`.
+* Setelah itu Anda bisa langsung menjalankan project dengan menekan tombol F5, kemudian mengeset lokasi direktori `WhatsAppNETAPINodeJs` dan menekan tombol `Start` untuk mengaktifkan bot.
 
-## Solusi Error
-
-Error yang sering terjadi adalah ketika versi google chrome Anda tidak kompatibel dengan versi ChromeDriver (WebDriver for Chrome), sehingga Anda harus mendownload ulang file [chromedriver.exe](https://chromedriver.chromium.org/downloads) yang menyesuaikan dengan versi google chrome Anda.
+Untuk mendapatkan direktori `WhatsAppNETAPINodeJs`, langkah-langkahnya bisa Anda baca di [sini](http://wa-net.coding4ever.net/).
