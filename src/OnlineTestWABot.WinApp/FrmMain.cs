@@ -48,16 +48,16 @@ namespace OnlineTestWABot.WinApp
                                        "Blog : {3}\r\n\r\n" +
 
                                         "Daftar keyword yang tersedia :\r\n\r\n" +
-                                        "\U00002705 */about* - informasi program\r\n" +
-                                        "\U00002705 */bantuan* - untuk menampilkan perintah yang tersedia\r\n" +
-                                        "\U00002705 */mulai* - untuk memulai tes bahasa inggris\r\n" +
-                                        "\U00002705 */soal* - untuk mendapatkan soal tes bahasa inggris\r\n" +
-                                        "\U00002705 */soalterakhir* - informasi soal terakhir\r\n" +
-                                        "\U00002705 */jawab jawaban* - untuk menjawab soal. contoh */jawab A*\r\n" +
-                                        "\U00002705 */batal* - untuk mengabaikan soal terakhir/enggak sanggup jawab \U0001F61C\r\n" +
-                                        "\U00002705 */selesai* - untuk mengakhiri tes bahasa Inggris";
+                                        "\U00002705 *about* - informasi program\r\n" +
+                                        "\U00002705 *bantuan* - untuk menampilkan perintah yang tersedia\r\n" +
+                                        "\U00002705 *mulai* - untuk memulai tes bahasa inggris\r\n" +
+                                        "\U00002705 *soal* - untuk mendapatkan soal tes bahasa inggris\r\n" +
+                                        "\U00002705 *soalterakhir* - informasi soal terakhir\r\n" +
+                                        "\U00002705 *jawab jawaban* - untuk menjawab soal. contoh *jawab A*\r\n" +
+                                        "\U00002705 *batal* - untuk mengabaikan soal terakhir/enggak sanggup jawab \U0001F61C\r\n" +
+                                        "\U00002705 *selesai* - untuk mengakhiri tes bahasa Inggris";
 
-        private const string PERINTAH_SALAH = "Maaf perintah *{0}* tidak dikenal, ketik */bantuan* untuk informasi lebih lanjut.";
+        private const string PERINTAH_SALAH = "Maaf perintah *{0}* tidak dikenal, ketik *bantuan* untuk informasi lebih lanjut.";
         private const string AUTHOR = "Kamarudin";
         private const string EMAIL = "rudi.krsoftware@gmail.com";
         private const string URL = "http://coding4ever.net/";
@@ -99,35 +99,35 @@ namespace OnlineTestWABot.WinApp
 
                 switch (keyword.ToLower())
                 {
-                    case "/about":
+                    case "about":
                         msgToReplay = string.Format(ABOUT, _currentVersion, AUTHOR, EMAIL, URL);
                         break;
 
-                    case "/bantuan":
+                    case "bantuan":
                         msgToReplay = string.Format(BANTUAN, _currentVersion, AUTHOR, EMAIL, URL);
                         break;
 
-                    case "/mulai":
+                    case "mulai":
                         perintahBot.Mulai(user.user_id, ref msgToReplay);
                         break;
 
-                    case "/soal":
+                    case "soal":
                         perintahBot.Soal(user.user_id, ref msgToReplay);
                         break;
 
-                    case "/soalterakhir":
+                    case "soalterakhir":
                         perintahBot.SoalTerakhir(user.user_id, ref msgToReplay);
                         break;
 
-                    case "/jawab":
+                    case "jawab":
                         perintahBot.Jawab(user.user_id, param, ref msgToReplay);                        
                         break;
 
-                    case "/batal":
+                    case "batal":
                         perintahBot.Batal(user.user_id, ref msgToReplay);
                         break;
 
-                    case "/selesai":
+                    case "selesai":
                         perintahBot.Selesai(user.user_id, ref msgToReplay);                        
                         break;
 
@@ -300,7 +300,7 @@ namespace OnlineTestWABot.WinApp
             var msgToReplay = string.Empty;
             AutoReplay(user, chat, ref msgToReplay);
 
-            _wa.SendMessage(new MsgArgs(message.from, msgToReplay, "text"));
+            _wa.ReplyMessage(new ReplyMsgArgs(message.from, msgToReplay, message.id));
         }
 
         private void OnClientConnectedHandler()

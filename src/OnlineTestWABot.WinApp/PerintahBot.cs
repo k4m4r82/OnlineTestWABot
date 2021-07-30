@@ -32,10 +32,10 @@ namespace OnlineTestWABot.WinApp
 {
     public class PerintahBot
     {
-        private const string SESSION_TIMEOUT = @"Maaf sesi tes bahasa Inggris Anda sudah selesai/belum dibuat, ketik */mulai* untuk memulai tes.";
-        private const string SESSION_NOT_TIMEOUT = @"Sesi Anda belum habis, silahkan melanjutkan menjawab soal atau */selesai* untuk melihat hasil tes.";
-        private const string SOAL_SUDAH_DIJAWAB = @"Maaf soal terakhir tidak ditemukan/sudah dijawab, ketik */soal* untuk mendapatkan soal baru atau */selesai* untuk melihat hasil tes.";
-        private const string SESSION_OK = @"Selamat !!! sesi tes bahasa Inggris Anda sudah dibuat, ketik */soal* untuk memulai tes.";
+        private const string SESSION_TIMEOUT = @"Maaf sesi tes bahasa Inggris Anda sudah selesai/belum dibuat, ketik *mulai* untuk memulai tes.";
+        private const string SESSION_NOT_TIMEOUT = @"Sesi Anda belum habis, silahkan melanjutkan menjawab soal atau *selesai* untuk melihat hasil tes.";
+        private const string SOAL_SUDAH_DIJAWAB = @"Maaf soal terakhir tidak ditemukan/sudah dijawab, ketik *soal* untuk mendapatkan soal baru atau *selesai* untuk melihat hasil tes.";
+        private const string SESSION_OK = @"Selamat !!! sesi tes bahasa Inggris Anda sudah dibuat, ketik *soal* untuk memulai tes.";
 
         private const string HASIL_TES = "\U0001F3C1 Hasil tes Anda \U0001F3C1\r\n\r\n" +
                                          "\U00002705 *Benar* = {0}\r\n" +
@@ -84,13 +84,13 @@ namespace OnlineTestWABot.WinApp
 
                 if (lastSoal != null && string.IsNullOrEmpty(lastSoal.jawaban))
                 {
-                    msgToReplay = @"Maaf soal terakhir belum dijawab, ketik */soalterakhir* untuk melihat soal terakhir.";
+                    msgToReplay = @"Maaf soal terakhir belum dijawab, ketik *soalterakhir* untuk melihat soal terakhir.";
                 }
                 else
                 {
                     var newSoal = GetNewSoal(lastSession.sesi_id);
                     msgToReplay = newSoal.soal + "\r\n\r\n" +
-                                  "Ketik: */jawab jawaban* untuk menjawab. Contoh: */jawab a*";
+                                  "Ketik: *jawab jawaban* untuk menjawab. Contoh: *jawab a*";
 
                     msgToReplay = msgToReplay.Replace("[A]", "*[A]*");
                     msgToReplay = msgToReplay.Replace("[B]", "*[B]*");
@@ -128,7 +128,7 @@ namespace OnlineTestWABot.WinApp
                 if (lastSoal != null)
                 {
                     msgToReplay = lastSoal.BankSoal.soal + "\r\n\r\n" +
-                                  "Ketik: */jawab jawaban* untuk menjawab. Contoh: */jawab a*";
+                                  "Ketik: *jawab jawaban* untuk menjawab. Contoh: *jawab a*";
 
                     msgToReplay = msgToReplay.Replace("[A]", "*[A]*");
                     msgToReplay = msgToReplay.Replace("[B]", "*[B]*");
@@ -141,7 +141,7 @@ namespace OnlineTestWABot.WinApp
                 }
                 else
                 {
-                    msgToReplay = @"Maaf soal terakhir tidak ditemukan, ketik */soal* untuk mendapatkan soal baru atau */selesai* untuk melihat hasil tes.";
+                    msgToReplay = @"Maaf soal terakhir tidak ditemukan, ketik *soal* untuk mendapatkan soal baru atau *selesai* untuk melihat hasil tes.";
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace OnlineTestWABot.WinApp
             {
                 if (string.IsNullOrEmpty(param))
                 {
-                    msgToReplay = @"Maaf jawaban kosong, ketik */jawab jawaban* untuk menjawab soal. Contoh: /jawab a";
+                    msgToReplay = @"Maaf jawaban kosong, ketik *jawab jawaban* untuk menjawab soal. Contoh: /jawab a";
                 }
                 else
                 {
@@ -179,7 +179,7 @@ namespace OnlineTestWABot.WinApp
 
                         UpdateHistoriTes(lastSoal);
 
-                        msgToReplay = msgToReplay + string.Format("\r\n\r\nAnalisa/Keterangan:\r\n{0}\r\n\r\nKetik */soal* untuk mendapatkan soal baru atau */selesai* untuk melihat hasil tes.", lastSoal.BankSoal.analisa);
+                        msgToReplay = msgToReplay + string.Format("\r\n\r\nAnalisa/Keterangan:\r\n{0}\r\n\r\nKetik *soal* untuk mendapatkan soal baru atau *selesai* untuk melihat hasil tes.", lastSoal.BankSoal.analisa);
                     }
                     else
                     {
@@ -206,7 +206,7 @@ namespace OnlineTestWABot.WinApp
                     lastSoal.batal = true;
                     UpdateHistoriTes(lastSoal);
 
-                    msgToReplay = "Soal terakhir sudah dibatalkan, ketik */soal* untuk mendapatkan soal baru atau */selesai* untuk melihat hasil tes.\r\n\r\n";
+                    msgToReplay = "Soal terakhir sudah dibatalkan, ketik *soal* untuk mendapatkan soal baru atau *selesai* untuk melihat hasil tes.\r\n\r\n";
                 }
                 else
                 {
