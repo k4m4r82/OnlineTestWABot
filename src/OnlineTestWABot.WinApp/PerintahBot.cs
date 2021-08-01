@@ -36,6 +36,7 @@ namespace OnlineTestWABot.WinApp
         private const string SESSION_NOT_TIMEOUT = @"Sesi Anda belum habis, silahkan melanjutkan menjawab soal atau *selesai* untuk melihat hasil tes.";
         private const string SOAL_SUDAH_DIJAWAB = @"Maaf soal terakhir tidak ditemukan/sudah dijawab, ketik *soal* untuk mendapatkan soal baru atau *selesai* untuk melihat hasil tes.";
         private const string SESSION_OK = @"Selamat !!! sesi tes bahasa Inggris Anda sudah dibuat, ketik *soal* untuk memulai tes.";
+        private const string TES_SELESAI = @"Selamat !!! Anda sudah menyelesaikan semua soal, ketik *selesai* untuk mengakhiri tes.";
 
         private const string HASIL_TES = "\U0001F3C1 Hasil tes Anda \U0001F3C1\r\n\r\n" +
                                          "\U00002705 *Benar* = {0}\r\n" +
@@ -89,29 +90,36 @@ namespace OnlineTestWABot.WinApp
                 else
                 {
                     var newSoal = GetNewSoal(lastSession.sesi_id);
-                    msgToReplay = newSoal.soal + "\r\n\r\n" +
+                    if (newSoal == null)
+                    {
+                        msgToReplay = TES_SELESAI;
+                    }
+                    else
+                    {
+                        msgToReplay = newSoal.soal + "\r\n\r\n" +
                                   "Ketik: *jawab jawaban* untuk menjawab. Contoh: *jawab a*";
 
-                    msgToReplay = msgToReplay.Replace("[A]", "*[A]*");
-                    msgToReplay = msgToReplay.Replace("[B]", "*[B]*");
-                    msgToReplay = msgToReplay.Replace("[C]", "*[C]*");
-                    msgToReplay = msgToReplay.Replace("[D]", "*[D]*");
-                    msgToReplay = msgToReplay.Replace("[E]", "*[E]*");
-                    msgToReplay = msgToReplay.Replace("BACAAN", "*BACAAN*");
-                    msgToReplay = msgToReplay.Replace("PERTANYAAN", "*PERTANYAAN*");
+                        msgToReplay = msgToReplay.Replace("[A]", "*[A]*");
+                        msgToReplay = msgToReplay.Replace("[B]", "*[B]*");
+                        msgToReplay = msgToReplay.Replace("[C]", "*[C]*");
+                        msgToReplay = msgToReplay.Replace("[D]", "*[D]*");
+                        msgToReplay = msgToReplay.Replace("[E]", "*[E]*");
+                        msgToReplay = msgToReplay.Replace("BACAAN", "*BACAAN*");
+                        msgToReplay = msgToReplay.Replace("PERTANYAAN", "*PERTANYAAN*");
 
-                    msgToReplay = string.Format("*Soal Nomor {0}*", newSoal.nomor_soal) + ":\r\n\r\n" +
-                                  msgToReplay;
+                        msgToReplay = string.Format("*Soal Nomor {0}*", newSoal.nomor_soal) + ":\r\n\r\n" +
+                                      msgToReplay;
 
-                    var histori = new HistoriTes
-                    {
-                        user_id = userId,
-                        sesi_id = lastSession.sesi_id,
-                        tanggal = DateTime.Now,
-                        bank_soal_id = newSoal.bank_soal_id
-                    };
+                        var histori = new HistoriTes
+                        {
+                            user_id = userId,
+                            sesi_id = lastSession.sesi_id,
+                            tanggal = DateTime.Now,
+                            bank_soal_id = newSoal.bank_soal_id
+                        };
 
-                    SaveHistoriTes(histori);
+                        SaveHistoriTes(histori);
+                    }                    
                 }
             }
         }
