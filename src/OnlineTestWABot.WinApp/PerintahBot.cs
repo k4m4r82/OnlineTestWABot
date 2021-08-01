@@ -228,7 +228,7 @@ namespace OnlineTestWABot.WinApp
             else
             {
                 var hasilTes = GetHasilTes(lastSession.sesi_id);
-                var nilai = hasilTes.benar * 5;
+                var nilai = hasilTes.benar * 2.5;
 
                 msgToReplay = string.Format(HASIL_TES, hasilTes.benar, hasilTes.salah, nilai);
 

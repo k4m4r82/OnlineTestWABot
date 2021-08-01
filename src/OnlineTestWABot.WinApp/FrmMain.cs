@@ -47,7 +47,7 @@ namespace OnlineTestWABot.WinApp
                                        "Email : {2}\r\n" +
                                        "Blog : {3}\r\n\r\n" +
 
-                                        "Anda akan mendapatkan *42 SOAL* dengan model pilihan ganda.\r\n\r\n" +
+                                        "Anda akan mendapatkan *40 SOAL* dengan model pilihan ganda.\r\n\r\n" +
 
                                         "Daftar keyword yang tersedia :\r\n\r\n" +
                                         "\U00002705 *about* - informasi program\r\n" +
