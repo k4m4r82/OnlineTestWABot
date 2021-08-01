@@ -97,6 +97,8 @@ namespace OnlineTestWABot.WinApp
                     msgToReplay = msgToReplay.Replace("[C]", "*[C]*");
                     msgToReplay = msgToReplay.Replace("[D]", "*[D]*");
                     msgToReplay = msgToReplay.Replace("[E]", "*[E]*");
+                    msgToReplay = msgToReplay.Replace("BACAAN", "*BACAAN*");
+                    msgToReplay = msgToReplay.Replace("PERTANYAAN", "*PERTANYAAN*");
 
                     msgToReplay = string.Format("*Soal Nomor {0}*", newSoal.nomor_soal) + ":\r\n\r\n" +
                                   msgToReplay;
