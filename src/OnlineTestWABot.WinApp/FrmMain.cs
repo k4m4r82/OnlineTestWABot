@@ -257,7 +257,7 @@ namespace OnlineTestWABot.WinApp
 
         # region event handler
 
-        private void OnStartupHandler(string message)
+        private void OnStartupHandler(string message, string sessionId)
         {
             // koneksi ke WA berhasil
             if (message.IndexOf("Ready") >= 0)
@@ -286,7 +286,7 @@ namespace OnlineTestWABot.WinApp
             }
         }
 
-        private void OnReceiveMessageHandler(WhatsAppNETAPI.Message message)
+        private void OnReceiveMessageHandler(WhatsAppNETAPI.Message message, string sessionId)
         {
             var user = new User
             {
@@ -305,7 +305,7 @@ namespace OnlineTestWABot.WinApp
             _wa.ReplyMessage(new ReplyMsgArgs(message.from, msgToReplay, message.id));
         }
 
-        private void OnClientConnectedHandler()
+        private void OnClientConnectedHandler(string sessionId)
         {
             System.Diagnostics.Debug.Print("ClientConnected on {0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
         }

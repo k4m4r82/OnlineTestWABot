@@ -37,6 +37,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JamesWright.SimpleHttp, Version=0.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\WhatsAppNETAPI.3.0.0\lib\net45\JamesWright.SimpleHttp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\libs\Microsoft.AspNet.SignalR.Client.2.4.2\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
@@ -89,8 +94,10 @@
     <Reference Include="WaitCursor">
       <HintPath>..\..\libs\WaitCursor.dll</HintPath>
     </Reference>
-    <Reference Include="WhatsAppNETAPI, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\libs\WhatsAppNETAPI.2.1.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
+    <Reference Include="WhatsAppNETAPI, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\WhatsAppNETAPI.3.0.0\lib\net45\WhatsAppNETAPI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
